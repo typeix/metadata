@@ -8,7 +8,7 @@ import {
     getMethodMetadata,
     getParameterMetadata,
     getPropertyMetadata,
-    hasDecorator, getMetadataForTarget, getMetadataKeysForTarget,
+    hasDecorator, getMetadataForTarget, getMetadataKeysForTarget, IMetadata,
 } from "./metadata";
 
 describe("Decorators", () => {
@@ -529,7 +529,7 @@ describe("Decorators", () => {
             }
         ]);
 
-        let metadata = getMetadataForTarget(CService);
+        let metadata: Array<IMetadata> = getMetadataForTarget(CService);
         expect(metadata).toStrictEqual( [
             {
                 args: {

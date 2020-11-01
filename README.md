@@ -1,12 +1,12 @@
 # @typeix/metadata
 Metadata API for typescript decorators
 
-Installing:
+# Installing:
 ```bash
 npm i @typeix/metadata --save
 ```
 
-Creating Decorators with easier API
+## Creating Decorators with easier API
 ```typescript
 let Injectable = () => createClassDecorator(Injectable);
 let Inject = (token?) => createParameterAndPropertyDecorator(Inject, {token});
@@ -52,10 +52,10 @@ class CService extends BService {
     }
 }
 
-let metadata = getAllMetadataForTarget(CService);
+let metadata: Array<IMetadata> = getAllMetadataForTarget(CService);
 ```
 
-Dev packages
+## Dev packages
 ```
 npm i typescript ts-jest jest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin-tslint @typescript-eslint/eslint-plugin @types/node @types/jest --save-dev
 ```
