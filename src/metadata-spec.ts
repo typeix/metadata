@@ -4,11 +4,11 @@ import {
     createParameterAndPropertyDecorator,
     createPropertyDecorator,
     getClassMetadata,
-    getDecoratorId, getAllDecoratorMetadata, getAllDecoratorMetadataKeys,
+    getDecoratorId, getAllMetadataForTarget, getAllMetadataKeysForTarget,
     getMethodMetadata,
     getParameterMetadata,
     getPropertyMetadata,
-    hasDecorator, getDecoratorMetadata, getDecoratorMetadataKeys,
+    hasDecorator, getMetadataForTarget, getMetadataKeysForTarget,
 } from "./metadata";
 
 describe("Decorators", () => {
@@ -316,7 +316,7 @@ describe("Decorators", () => {
             }
         }
 
-        let keys = getAllDecoratorMetadataKeys(CService);
+        let keys = getAllMetadataKeysForTarget(CService);
         expect(keys).toStrictEqual([
             {
                 propertyKey: undefined,
@@ -355,7 +355,7 @@ describe("Decorators", () => {
             }
         ]);
 
-        let metadata = getAllDecoratorMetadata(CService);
+        let metadata = getAllMetadataForTarget(CService);
         expect(metadata).toStrictEqual( [
             {
                 args: {
@@ -510,7 +510,7 @@ describe("Decorators", () => {
             }
         }
 
-        let keys = getDecoratorMetadataKeys(CService);
+        let keys = getMetadataKeysForTarget(CService);
         expect(keys).toStrictEqual([
             {
                 propertyKey: undefined,
@@ -529,7 +529,7 @@ describe("Decorators", () => {
             }
         ]);
 
-        let metadata = getDecoratorMetadata(CService);
+        let metadata = getMetadataForTarget(CService);
         expect(metadata).toStrictEqual( [
             {
                 args: {
@@ -575,7 +575,7 @@ describe("Decorators", () => {
             }
         ]);
 
-        keys = getDecoratorMetadataKeys(CService, "publicMethod");
+        keys = getMetadataKeysForTarget(CService, "publicMethod");
         expect(keys).toStrictEqual( [
             {
                 "propertyKey": "publicMethod",
@@ -593,7 +593,7 @@ describe("Decorators", () => {
                 "metadataKey": getDecoratorId(Produces)
             }
         ]);
-        metadata = getDecoratorMetadata(CService, "publicMethod");
+        metadata = getMetadataForTarget(CService, "publicMethod");
         expect(metadata).toStrictEqual( [
             {
                 args: {

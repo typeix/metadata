@@ -52,7 +52,7 @@ class CService extends BService {
     }
 }
 
-let metadata = getDecoratorMetadata(CService);
+let metadata = getAllMetadataForTarget(CService);
 ```
 
 Dev packages

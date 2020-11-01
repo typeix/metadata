@@ -20,9 +20,9 @@ export {
     getPropertyMetadata,
     getMethodMetadata,
     getParameterMetadata,
-    getDecoratorMetadataKeys,
-    getDecoratorMetadata,
-    getAllDecoratorKeys,
-    getAllDecoratorMetadataKeys,
-    getAllDecoratorMetadata
+    getMetadataKeysForTarget,
+    getMetadataForTarget,
+    getAllKeysForTarget,
+    getAllMetadataKeysForTarget,
+    getAllMetadataForTarget
 } from "./metadata";

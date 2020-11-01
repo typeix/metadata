@@ -346,7 +346,7 @@ interface IDecoratorMetadataKey {
  * @param target
  * @param targetKey
  */
-export function getDecoratorMetadataKeys(target: Function, targetKey?: string | symbol): Array<IDecoratorMetadataKey> {
+export function getMetadataKeysForTarget(target: Function, targetKey?: string | symbol): Array<IDecoratorMetadataKey> {
     let _target = isObject(target.prototype) && !!targetKey ? target.prototype : target;
     return getMetadataKeys(_target, targetKey)
         .filter(item => item.includes(TX_PREFIX))
@@ -364,10 +364,10 @@ export function getDecoratorMetadataKeys(target: Function, targetKey?: string | 
  * @param target
  * @param targetKey
  */
-export function getDecoratorMetadata(target: Function, targetKey?: string | symbol): Array<IMetadata> {
-    let keys = getDecoratorMetadataKeys(target, targetKey), proto = Object.getPrototypeOf(target);
+export function getMetadataForTarget(target: Function, targetKey?: string | symbol): Array<IMetadata> {
+    let keys = getMetadataKeysForTarget(target, targetKey), proto = Object.getPrototypeOf(target);
     if (!isNull(proto)) {
-        keys = mergeLeftMetadata(keys, getDecoratorMetadataKeys(proto, targetKey));
+        keys = mergeKeys(keys, getMetadataKeysForTarget(proto, targetKey));
     }
     return keys.map(item => getMetadata(item.metadataKey, item.target, item.propertyKey));
 }
@@ -376,7 +376,7 @@ export function getDecoratorMetadata(target: Function, targetKey?: string | symb
  * Get all decorator keys
  * @param target
  */
-export function getAllDecoratorKeys(target: Function): Array<{ key: string, target: Function }> {
+export function getAllKeysForTarget(target: Function): Array<{ key: string, target: Function }> {
     let keys = isObject(target.prototype) ? [{target: target, key: undefined}] : [],
         _target = isObject(target.prototype) ? target.prototype : target;
     return keys.concat(
@@ -396,11 +396,11 @@ export function getAllDecoratorKeys(target: Function): Array<{ key: string, targ
  * Get decorator metadata keys
  * @param target
  */
-export function getAllDecoratorMetadataKeys(target: Function): Array<IDecoratorMetadataKey> {
-    let keys = getAllDecoratorKeys(target), metadata = [], proto = Object.getPrototypeOf(target);
-    keys.forEach(item => metadata = metadata.concat(getDecoratorMetadataKeys(item.target, item.key)));
+export function getAllMetadataKeysForTarget(target: Function): Array<IDecoratorMetadataKey> {
+    let keys = getAllKeysForTarget(target), metadata = [], proto = Object.getPrototypeOf(target);
+    keys.forEach(item => metadata = metadata.concat(getMetadataKeysForTarget(item.target, item.key)));
     if (!isNull(proto)) {
-        metadata = mergeLeftMetadata(metadata, getAllDecoratorMetadataKeys(proto));
+        metadata = mergeKeys(metadata, getAllMetadataKeysForTarget(proto));
     }
     return metadata;
 }
@@ -409,8 +409,8 @@ export function getAllDecoratorMetadataKeys(target: Function): Array<IDecoratorM
  * Return decorator metadata
  * @param target
  */
-export function getAllDecoratorMetadata(target: Function): Array<IMetadata> {
-    return getAllDecoratorMetadataKeys(target).map(item => getMetadata(item.metadataKey, item.target, item.propertyKey));
+export function getAllMetadataForTarget(target: Function): Array<IMetadata> {
+    return getAllMetadataKeysForTarget(target).map(item => getMetadata(item.metadataKey, item.target, item.propertyKey));
 }
 
 /**
@@ -428,6 +428,12 @@ function getType(target: any, parameterOrDescriptor: any, propertyKey: any, type
     return type === "method" && isFunction(target) ? "static" : type;
 }
 
+/**
+ * Main Decorator
+ * @param decorator
+ * @param type
+ * @param args
+ */
 function decorate(decorator: Function, type: string, args: object): any {
     if (isFalsy(decorator.name)) {
         throw new TypeError("Decorator can't be anonymous function, you need to pass function declaration or function expression");
@@ -473,7 +479,12 @@ function decorate(decorator: Function, type: string, args: object): any {
     };
 }
 
-function mergeLeftMetadata(a: Array<IDecoratorMetadataKey>, b: Array<IDecoratorMetadataKey>) {
+/**
+ * Merge two decorator keys
+ * @param a
+ * @param b
+ */
+function mergeKeys(a: Array<IDecoratorMetadataKey>, b: Array<IDecoratorMetadataKey>) {
     return a.concat(b.filter((bI: IDecoratorMetadataKey) =>
         isFalsy(a.find((aI: IDecoratorMetadataKey) => aI.metadataKey === bI.metadataKey && aI.propertyKey === bI.propertyKey))
     ));
