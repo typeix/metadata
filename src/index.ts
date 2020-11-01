@@ -1,4 +1,5 @@
 export {
+    IMetadata,
     defineMetadata,
     getMetadata,
     getOwnMetadata,
