@@ -1,0 +1,48 @@
+{
+    "name": "@typeix/metadata",
+    "version": "4.0.0",
+    "description": "@typeix metadata apis::::",
+    "main": "build/index.js",
+    "scripts": {
+        "compile": "tsc",
+        "test": "npm run compile && jest -c jest-runner.json",
+        "debug": "node --inspect ./node_modules/.bin/jest -c jest-runner.json",
+        "lint": "eslint src/**/*.ts",
+        "format": "eslint src/**/*.ts --fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/typeix/di.git"
+    },
+    "keywords": [
+        "typeix",
+        "dependency",
+        "injection",
+        "di",
+        "typescript"
+    ],
+    "author": "igor.ivanovic@pm.me",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/typeix/di/issues"
+    },
+    "homepage": "https://github.com/typeix/di#readme",
+    "devDependencies": {
+        "@types/jest": "^26.0.15",
+        "@types/node": "^12.12.54",
+        "@typescript-eslint/eslint-plugin": "^4.6.0",
+        "@typescript-eslint/eslint-plugin-tslint": "^4.6.0",
+        "@typescript-eslint/parser": "^4.6.0",
+        "eslint": "^7.7.0",
+        "jest": "^26.6.1",
+        "ts-jest": "^26.4.3",
+        "typescript": "^4.0.5"
+    },
+    "dependencies": {
+        "@typeix/utils": "^4.0.0",
+        "reflect-metadata": "^0.1.13"
+    },
+    "engines": {
+        "node": ">=12.0"
+    }
+}

@@ -1,0 +1,6 @@
+/.idea/
+/src/
+/build/*-spec.*
+/jest-runner.json
+/tsconfig.json
+/tslint.json
