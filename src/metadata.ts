@@ -366,11 +366,9 @@ export function getDecoratorMetadataKeys(target: Function, targetKey?: string | 
  */
 export function getDecoratorMetadata(target: Function, targetKey?: string | symbol): Array<IMetadata> {
     let keys = getDecoratorMetadataKeys(target, targetKey), proto = Object.getPrototypeOf(target);
-
     if (!isNull(proto)) {
         keys = mergeLeftMetadata(keys, getDecoratorMetadataKeys(proto, targetKey));
     }
-
     return keys.map(item => getMetadata(item.metadataKey, item.target, item.propertyKey));
 }
 
