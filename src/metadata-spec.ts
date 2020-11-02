@@ -321,6 +321,11 @@ describe("Decorators", () => {
             {
                 propertyKey: undefined,
                 target: CService,
+                metadataKey: "design:paramtypes"
+            },
+            {
+                propertyKey: undefined,
+                target: CService,
                 metadataKey: getDecoratorId(Inject, 1)
             },
             {
@@ -336,6 +341,21 @@ describe("Decorators", () => {
             {
                 propertyKey: "publicMethod",
                 target: CService.prototype,
+                metadataKey: "design:returntype"
+            },
+            {
+                propertyKey: "publicMethod",
+                target: CService.prototype,
+                metadataKey: "design:paramtypes"
+            },
+            {
+                propertyKey: "publicMethod",
+                target: CService.prototype,
+                metadataKey: "design:type"
+            },
+            {
+                propertyKey: "publicMethod",
+                target: CService.prototype,
                 metadataKey: getDecoratorId(Inject, 1)
             },
             {
@@ -346,7 +366,17 @@ describe("Decorators", () => {
             {
                 propertyKey: "cServiceProperty",
                 target: CService.prototype,
+                metadataKey: "design:type"
+            },
+            {
+                propertyKey: "cServiceProperty",
+                target: CService.prototype,
                 metadataKey: getDecoratorId(Inject)
+            },
+            {
+                propertyKey: "bServiceProperty",
+                target: BService.prototype,
+                metadataKey: "design:type"
             },
             {
                 propertyKey: "bServiceProperty",
@@ -356,7 +386,15 @@ describe("Decorators", () => {
         ]);
 
         let metadata = getAllMetadataForTarget(CService);
-        expect(metadata).toStrictEqual( [
+        expect(metadata).toStrictEqual([
+            {
+                args: [
+                    AService,
+                    DService
+                ],
+                "metadataKey": "design:paramtypes",
+                "propertyKey": undefined,
+            },
             {
                 args: {
                     token: undefined
@@ -400,6 +438,25 @@ describe("Decorators", () => {
                 ]
             },
             {
+                "args": undefined,
+                "metadataKey": "design:returntype",
+                "propertyKey": "publicMethod"
+            },
+            {
+                "args": [
+                    AService,
+                    AService,
+                    String
+                ],
+                "metadataKey": "design:paramtypes",
+                "propertyKey": "publicMethod"
+            },
+            {
+                "args": Function,
+                "metadataKey": "design:type",
+                "propertyKey": "publicMethod"
+            },
+            {
                 "args": {
                     token: AService
                 },
@@ -436,6 +493,11 @@ describe("Decorators", () => {
                 ]
             },
             {
+                "args": AService,
+                "metadataKey": "design:type",
+                "propertyKey": "cServiceProperty"
+            },
+            {
                 "args": {
                     token: undefined
                 },
@@ -445,6 +507,11 @@ describe("Decorators", () => {
                 decorator: Inject,
                 "metadataKey": getDecoratorId(Inject),
                 "propertyKey": "cServiceProperty"
+            },
+            {
+                "args": AService,
+                "metadataKey": "design:type",
+                "propertyKey": "bServiceProperty"
             },
             {
                 "args": {
@@ -459,8 +526,6 @@ describe("Decorators", () => {
             }
         ]);
     });
-
-
 
 
     test("Get Constructor Metadata", () => {
@@ -515,6 +580,11 @@ describe("Decorators", () => {
             {
                 propertyKey: undefined,
                 target: CService,
+                metadataKey: "design:paramtypes"
+            },
+            {
+                propertyKey: undefined,
+                target: CService,
                 metadataKey: getDecoratorId(Inject, 1)
             },
             {
@@ -530,7 +600,15 @@ describe("Decorators", () => {
         ]);
 
         let metadata: Array<IMetadata> = getMetadataForTarget(CService);
-        expect(metadata).toStrictEqual( [
+        expect(metadata).toStrictEqual([
+            {
+                "args": [
+                    AService,
+                    DService
+                ],
+                "propertyKey": undefined,
+                "metadataKey": "design:paramtypes"
+            },
             {
                 args: {
                     token: undefined
@@ -576,7 +654,22 @@ describe("Decorators", () => {
         ]);
 
         keys = getMetadataKeysForTarget(CService, "publicMethod");
-        expect(keys).toStrictEqual( [
+        expect(keys).toStrictEqual([
+            {
+                "metadataKey": "design:returntype",
+                "propertyKey": "publicMethod",
+                "target":  CService.prototype,
+            },
+            {
+                "metadataKey": "design:paramtypes",
+                "propertyKey": "publicMethod",
+                "target":  CService.prototype,
+            },
+            {
+                "metadataKey": "design:type",
+                "propertyKey": "publicMethod",
+                "target": CService.prototype,
+            },
             {
                 "propertyKey": "publicMethod",
                 "target": CService.prototype,
@@ -594,7 +687,26 @@ describe("Decorators", () => {
             }
         ]);
         metadata = getMetadataForTarget(CService, "publicMethod");
-        expect(metadata).toStrictEqual( [
+        expect(metadata).toStrictEqual([
+            {
+                "args": undefined,
+                "metadataKey": "design:returntype",
+                "propertyKey": "publicMethod"
+            },
+            {
+                "args": [
+                    AService,
+                    AService,
+                    String
+                ],
+                "metadataKey": "design:paramtypes",
+                "propertyKey": "publicMethod"
+            },
+            {
+                "args": Function,
+                "metadataKey": "design:type",
+                "propertyKey": "publicMethod"
+            },
             {
                 args: {
                     token: AService

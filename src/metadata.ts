@@ -30,10 +30,10 @@ const TS_RETURN = "design:returntype";
  */
 export interface IMetadata {
     args: any;
-    type: string;
-    decorator: Function;
-    decoratorType: string;
     metadataKey: string;
+    type?: string;
+    decoratorType?: string;
+    decorator?: Function;
     propertyKey?: string | symbol;
     paramIndex?: number;
     identifier?: string;
@@ -340,7 +340,6 @@ interface IDecoratorMetadataKey {
     target: Object;
 }
 
-
 /**
  * Get decorator metadata keys
  * @param target
@@ -349,7 +348,6 @@ interface IDecoratorMetadataKey {
 export function getMetadataKeysForTarget(target: Function, targetKey?: string | symbol): Array<IDecoratorMetadataKey> {
     let _target = isObject(target.prototype) && !!targetKey ? target.prototype : target;
     return getMetadataKeys(_target, targetKey)
-        .filter(item => item.includes(TX_PREFIX))
         .map(key => {
             return {
                 propertyKey: targetKey,
@@ -369,7 +367,7 @@ export function getMetadataForTarget(target: Function, targetKey?: string | symb
     if (!isNull(proto)) {
         keys = mergeKeys(keys, getMetadataKeysForTarget(proto, targetKey));
     }
-    return keys.map(item => getMetadata(item.metadataKey, item.target, item.propertyKey));
+    return keys.map(item => mapKeyToMetadata(item));
 }
 
 /**
@@ -410,7 +408,7 @@ export function getAllMetadataKeysForTarget(target: Function): Array<IDecoratorM
  * @param target
  */
 export function getAllMetadataForTarget(target: Function): Array<IMetadata> {
-    return getAllMetadataKeysForTarget(target).map(item => getMetadata(item.metadataKey, item.target, item.propertyKey));
+    return getAllMetadataKeysForTarget(target).map(item => mapKeyToMetadata(item));
 }
 
 /**
@@ -479,6 +477,21 @@ function decorate(decorator: Function, type: string, args: object): any {
     };
 }
 
+/**
+ * Map to metadata
+ * @param key
+ */
+function mapKeyToMetadata(key: IDecoratorMetadataKey): IMetadata {
+    let metadata = getMetadata(key.metadataKey, key.target, key.propertyKey);
+    if (key.metadataKey.includes(TX_PREFIX)) {
+        return metadata;
+    }
+    return <IMetadata> {
+        args: metadata,
+        propertyKey: key.propertyKey,
+        metadataKey: key.metadataKey
+    };
+}
 /**
  * Merge two decorator keys
  * @param a
