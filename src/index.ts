@@ -25,5 +25,8 @@ export {
     getMetadataForTarget,
     getAllKeysForTarget,
     getAllMetadataKeysForTarget,
-    getAllMetadataForTarget
+    getAllMetadataForTarget,
+    TS_PARAMS,
+    TS_RETURN,
+    TS_TYPE
 } from "./metadata";

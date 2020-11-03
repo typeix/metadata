@@ -18,9 +18,9 @@ const TX_NAME = `${TX_PREFIX}:name`;
 const TX_UUID = `${TX_PREFIX}:uuid`;
 const TX_ID = `${TX_PREFIX}:id`;
 const TX_TYPE = `${TX_PREFIX}:type`;
-const TS_PARAMS = "design:paramtypes";
-const TS_TYPE = "design:type";
-const TS_RETURN = "design:returntype";
+export const TS_PARAMS = "design:paramtypes";
+export const TS_TYPE = "design:type";
+export const TS_RETURN = "design:returntype";
 
 /**
  * @param name of decorator
