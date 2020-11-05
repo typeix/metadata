@@ -154,7 +154,7 @@ export function deleteMetadata(metadataKey: any, target: Object, targetKey?: str
  */
 export function getDecoratorId(decorator: Function, index?: number): string {
     if (isFalsy(decorator[TX_ID])) {
-        throw new TypeError("Decorator must be created via @typeix decorator functions");
+        throw new TypeError(`Decorator must be created via @typeix decorator functions: ${decorator.toString()}`);
     }
     return decorator[TX_ID] + (isNumber(index) ? `:${index}` : "");
 }
@@ -165,7 +165,7 @@ export function getDecoratorId(decorator: Function, index?: number): string {
  */
 export function getDecoratorUUID(decorator: Function): string {
     if (isFalsy(decorator[TX_UUID])) {
-        throw new TypeError("Decorator must be created via @typeix decorator functions");
+        throw new TypeError(`Decorator must be created via @typeix decorator functions: ${decorator.toString()}`);
     }
     return decorator[TX_UUID];
 }
@@ -177,7 +177,7 @@ export function getDecoratorUUID(decorator: Function): string {
  */
 export function getDecoratorType(decorator: Function): string {
     if (isFalsy(decorator[TX_TYPE])) {
-        throw new TypeError("Decorator must be created via @typeix decorator functions");
+        throw new TypeError(`Decorator must be created via @typeix decorator functions: ${decorator.toString()}`);
     }
     return decorator[TX_TYPE];
 }
@@ -188,7 +188,7 @@ export function getDecoratorType(decorator: Function): string {
  */
 export function getDecoratorName(decorator: Function): string {
     if (isFalsy(decorator[TX_NAME])) {
-        throw new TypeError("Decorator must be created via @typeix decorator functions");
+        throw new TypeError(`Decorator must be created via @typeix decorator functions: ${decorator.toString()}`);
     }
     return decorator[TX_NAME];
 }
@@ -434,7 +434,7 @@ function getType(target: any, parameterOrDescriptor: any, propertyKey: any, type
  */
 function decorate(decorator: Function, type: string, args: object): any {
     if (isFalsy(decorator.name)) {
-        throw new TypeError("Decorator can't be anonymous function, you need to pass function declaration or function expression");
+        throw new TypeError(`Decorator can't be anonymous function, you need to pass function declaration or function expression: ${decorator.toString()}`);
     }
     if (isFalsy(decorator[TX_ID])) {
         decorator[TX_UUID] = uuid();

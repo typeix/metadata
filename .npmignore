@@ -4,3 +4,6 @@
 /jest-runner.json
 /tsconfig.json
 /tslint.json
+*.js.map
+/package-lock.json
+
