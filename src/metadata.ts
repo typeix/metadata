@@ -146,7 +146,13 @@ export function deleteMetadata(metadataKey: any, target: Object, targetKey?: str
     }
 }
 
-
+/**
+ * Check if decorator
+ * @param decorator
+ */
+export function isDecorator(decorator: Function): boolean {
+    return isTruthy(decorator[TX_ID]);
+}
 /**
  * Get Decorator id
  * @param decorator
@@ -275,8 +281,8 @@ export function hasDecorator(decorator: Function, target: Function, targetKey?: 
 export function hasDecorator(decorator: Function, target: object, targetKey?: string, index?: number): boolean;
 export function hasDecorator(decorator: Function, target: Function, targetKey?: symbol, index?: number): boolean;
 export function hasDecorator(decorator: Function, target: object, targetKey?: symbol, index?: number): boolean;
-export function hasDecorator(decorator: any, target: any, targetKey?: any, index?: number): boolean {
-    return hasMetadata(getDecoratorId(decorator, index), target, targetKey);
+export function hasDecorator(decorator: any, target?: any, targetKey?: any, index?: number): boolean {
+    return isDecorator(decorator) ? hasMetadata(getDecoratorId(decorator, index), target, targetKey) : false;
 }
 
 

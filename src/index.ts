@@ -1,3 +1,5 @@
+import {isDecorator} from "./metadata";
+
 export {
     IMetadata,
     defineMetadata,
@@ -17,6 +19,7 @@ export {
     createParameterAndPropertyDecorator,
     createMethodDecorator,
     hasDecorator,
+    isDecorator,
     getClassMetadata,
     getPropertyMetadata,
     getMethodMetadata,
